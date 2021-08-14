@@ -8,4 +8,8 @@
 
 - Bundle install (instalar os pacotes)
 
+- rake db:setup
+
+- rake db:migrate 
+
 - rails s (para rodar o servidor/projeto)
