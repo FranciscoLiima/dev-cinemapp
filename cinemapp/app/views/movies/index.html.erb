@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cinemapp</title>
+</head>
+<body>
+<h1>Cinemapp</h1>
+<br>
+<h2>Search List</h2>
+<%= form_tag(movies_index_path) do %>
+<%= text_field_tag(:searchmovies) %>
+<%= submit_tag "Search Movies", :onclick=>"getMovies, getFavoriteMovie" %>
+<% end %>
+<% if JSON.parse(@movies)["Search"] != nil %>
+<table><tr><td valign=top>
+    <pre>
+      <table align="center">
+              <tr>
+                  <th><th>Title</th>
+                  <th><th>Year</th>
+                  <th><th><th>Would you like to add to favorite?</th></th></th>
+              </tr>
+              <% JSON.parse(@movies)["Search"].each do |movies| %>                   
+              <tr align="center">
+                  <td> <td><%= movies["Title"] rescue 'Unknown' %></td> </td>
+                  <td> <td><%= movies["Year"] rescue 'Unknown' %></td> </td>
+                  <%= form_tag(movies_index_path) do %>
+                  <td> <td> <td>  <%= submit_tag "Add", :onclick=>"insertFavoriteMovie()" %>
+                  
+                  </td> </td>
+                  <% end %>
+              </tr>
+              <% end %>
+              </table>
+          </div>
+      </table>
+    </pre>
+<% end %>
+<br><br>
+<h2>Favorite List</h2>
+<% if @favoritemovies != nil %>
+<table><tr><td valign=top>
+    <pre>
+      <table align="center">
+              <tr>
+                  <th><th>Title</th>
+                  <th><th>Year</th>
+                  <th><th><th>Would you like to remove of favorite?</th></th></th>
+              </tr>
+              <% @favoritemovies.each do |movies| %>                   
+              <tr align="center">
+                  <td> <td><%= movies rescue 'Unknown' %></td> </td>
+                  <td> <td><%= movies rescue 'Unknown' %></td> </td>
+                  <%= form_tag(movies_index_path) do %>
+                  <td> <td> <td>  <%= submit_tag "Remove", :onclick=>"@favoritemovie.destroy" %>
+                  
+                  </td> </td>
+                  <% end %>
+              </tr>
+              <% end %>
+              </table>
+          </div>
+      </table>
+    </pre>
+<% end %>
+</body>
+</html>
