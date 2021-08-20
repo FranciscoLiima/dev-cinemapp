@@ -1,2 +1,0 @@
-class Favoritemovie < ApplicationRecord
-end

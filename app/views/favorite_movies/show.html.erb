@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @favorite_movie.title %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @favorite_movie.date %>
+</p>
+
+<%= link_to 'Edit', edit_favorite_movie_path(@favorite_movie) %> |
+<%= link_to 'Back', favorite_movies_path %>

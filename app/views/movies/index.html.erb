@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Movie App</title>
+</head>
+<body>
+  <h1>Movie App</h1>
+  <br>
+  <p id="notice"><%= notice %></p>
+  
+  <h2>Search List</h2>
+  
+  <% # Submit search and send param to controller to do the business rule %>
+  <%= form_tag(movies_index_path) do %>
+  <%= text_field_tag(:searchmovies) %>
+  <%= submit_tag "Search Movies" %>
+  <% end %>
+  
+  <% # Display list if value is true %>
+  <% if JSON.parse(@movies)["Search"] != nil %>
+  <table><tr><td valign=top>
+    <pre>
+      <table align="center">
+              <tr>
+                  <th><th>Title</th>
+                  <th><th>Year</th>
+                  <th><th><th>Would you like to add to favorite movie list?</th></th></th>
+              </tr>
+              <% JSON.parse(@movies)["Search"].each do |movieslist| %>                   
+              <tr align="center">
+                  <td> <td><%= movieslist["Title"] rescue 'Unknown' %></td> </td>
+                  <td> <td><%= movieslist["Year"] rescue 'Unknown' %></td> </td>
+                  <td> <td> <td> <%= link_to 'Add', movieslist %></td>
+              </tr>
+              <% end %>
+              </table>
+          </div>
+      </table>
+    </pre>
+  <% end %>
+  <br><br>
+  
+  <% # Display list of favorite movies if find first data on database %>
+  <% if @favorite_movies.first != nil %>
+  <h2>Favorite List</h2>
+  <table><tr><td valign=top>
+    <pre>
+      <table align="center">
+              <tr>
+                  <th><th>Title</th>
+                  <th><th>Year</th>
+                  <th><th><th>Would you like to remove of favorite?</th></th></th>
+              </tr>
+              <% @favorite_movies.each do |favoritemovieslist| %>                   
+              <tr align="center">
+                  <td> <td><%= favoritemovieslist.title rescue 'Unknown' %></td> </td>
+                  <td> <td><%= favoritemovieslist.date rescue 'Unknown' %></td> </td>
+                  <td> <td> <td><%= link_to 'Remove', favoritemovieslist, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              </tr>
+              <% end %>
+              </table>
+          </div>
+      </table>
+    </pre>
+  <% end %>
+</body>
+</html>
